@@ -1,3 +1,3 @@
-require 'boilerpipe'
+require 'app/hello'
 
 run Sinatra::Application
