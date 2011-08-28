@@ -1,9 +1,9 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>au.com.mathew</groupId>
+  <groupId>net.chowie</groupId>
   <artifactId>jruby-heroku</artifactId>
 	<version>1.0</version>
-	<name>webapp</name>
+	<name>sinatra-jruby-heroku</name>
 	<packaging>jar</packaging>
   <dependencies>
 		<dependency>

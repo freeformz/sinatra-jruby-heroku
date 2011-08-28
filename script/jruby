@@ -77,13 +77,13 @@ fi
 
 if [ -z "$REPO" ]
 then
-  REPO="$BASEDIR"/repo
+  REPO="$BASEDIR"/.m2/repository
 fi
 
 CLASSPATH=$CLASSPATH_PREFIX:"$BASEDIR"/etc:"$REPO"/org/jruby/jruby-complete/1.6.3/jruby-complete-1.6.3.jar
 EXTRA_JVM_ARGUMENTS=""
 
-echo $CLASSPATH
+echo "Classpath is: $CLASSPATH"
 
 # For Cygwin, switch paths to Windows format before running java
 if $cygwin; then
@@ -98,14 +98,6 @@ export GEM_HOME="$APPDIR"/.gems
 export GEM_PATH=$GEM_HOME
 export PATH="$GEM_PATH"/bin:$PATH
 export BUNDLE_GEMFILE="$APPDIR"/Jemfile
-
-# Test if Heroku's environment variables are set.
-# If they are, we're running on Heroku and should 
-# set our RAILS_ENV to production
-if [ -n "${DATABASE_URL}" ] && [ -n ${PORT} ] && [ "${APPDIR}" = "/app" ]; then
-	echo "Detected that we are running on Heroku. Setting RAILS_ENV=production"
-	export RAILS_ENV=production
-fi
 
 exec "$JAVACMD" $JAVA_OPTS \
   $EXTRA_JVM_ARGUMENTS \
