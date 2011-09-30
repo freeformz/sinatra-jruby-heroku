@@ -1,53 +1,73 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.chowie</groupId>
-  <artifactId>jruby-heroku</artifactId>
-	<version>1.0</version>
-	<name>sinatra-jruby-heroku</name>
-	<packaging>jar</packaging>
+  <!-- Change this to something that represents your orginization -->
+  <groupId>com.heroku</groupId>
+  <!-- Change these to something like the name of your app -->
+  <artifactId>sinatra-jruby-heroku-example</artifactId>
+  <name>sinatra-jruby-heroku-example</name>
+  <!-- Change this to the version of your app -->
+  <version>0.1</version>
+  <packaging>jar</packaging>
   <dependencies>
-		<dependency>
-				<groupId>org.jruby</groupId>
-				<artifactId>jruby-complete</artifactId>
-				<version>1.6.3</version>
-		</dependency>
-		<dependency>
-				<groupId>org.jruby.plugins</groupId>
-				<artifactId>jruby-rake-plugin</artifactId>
-				<version>1.6.3</version>
-		</dependency>
+    <dependency>
+      <groupId>org.jruby</groupId>
+      <artifactId>jruby-complete</artifactId>
+      <type>jar</type>
+      <version>1.6.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jruby.plugins</groupId>
+      <artifactId>jruby-rake-plugin</artifactId>
+      <type>jar</type>
+      <version>1.6.4</version>
+    </dependency>
+    <!-- Add other java dependencies here via <dependency/> tags -->
   </dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.jruby.plugins</groupId>
-				<artifactId>jruby-rake-plugin</artifactId>
-				<version>1.6.3</version>
-				<executions>
-					<execution>
-						<id>install-bundler</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>jruby</goal>
-						</goals>
-						<configuration>
-						 <args>-S gem install bundler --no-ri --no-rdoc --install-dir .gems</args>
-						</configuration>
-					</execution>
-					<execution>
-						<id>bundle-install</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>jruby</goal>
-						</goals>
-						<configuration>
-							<args>
-								-e ENV['GEM_HOME']=File.join(Dir.pwd,'.gems');ENV['GEM_PATH']=File.join(Dir.pwd,'.gems');ENV['BUNDLE_GEMFILE']=File.join(Dir.pwd,'Jemfile');require'rubygems';require'bundler';require'bundler/cli';cli=Bundler::CLI.new;cli.install
-							</args>
-						</configuration>
-					</execution>
-				 </executions>
-			 </plugin>
-		</plugins>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jruby.plugins</groupId>
+        <artifactId>jruby-rake-plugin</artifactId>
+        <version>1.6.4</version>
+        <executions>
+          <execution>
+            <id>install-bundler</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>jruby</goal>
+            </goals>
+            <configuration>
+              <args>-S gem install bundler --no-ri --no-rdoc --install-dir .gems</args>
+            </configuration>
+          </execution>
+          <execution>
+            <id>bundle-install</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>jruby</goal>
+            </goals>
+            <configuration>
+              <args>
+                script/bundle install --without development,test
+              </args>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 </project>

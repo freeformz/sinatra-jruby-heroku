@@ -80,10 +80,8 @@ then
   REPO="$BASEDIR"/.m2/repository
 fi
 
-CLASSPATH=$CLASSPATH_PREFIX:"$BASEDIR"/etc:"$REPO"/org/jruby/jruby-complete/1.6.3/jruby-complete-1.6.3.jar
+CLASSPATH=$CLASSPATH_PREFIX:$BASEDIR/target/lib/*
 EXTRA_JVM_ARGUMENTS=""
-
-echo "Classpath is: $CLASSPATH"
 
 # For Cygwin, switch paths to Windows format before running java
 if $cygwin; then
@@ -98,6 +96,11 @@ export GEM_HOME="$APPDIR"/.gems
 export GEM_PATH=$GEM_HOME
 export PATH="$GEM_PATH"/bin:$PATH
 export BUNDLE_GEMFILE="$APPDIR"/Jemfile
+
+echo "Classpath is: $CLASSPATH"
+echo "GEM_HOME: ${GEM_HOME}"
+echo "GEM_PATH: ${GEM_PATH}"
+echo "BUNDLE_GEMFILE: ${BUNDLE_GEMFILE}"
 
 exec "$JAVACMD" $JAVA_OPTS \
   $EXTRA_JVM_ARGUMENTS \
