@@ -13,8 +13,8 @@ Tools you'll need:
   * foreman (gem install froeman)
 
 
-Simple Getting Started Locally Instructions
--------------------------------------------
+Getting Started Locally
+-----------------------
  * rvm use 1.9.2
  * brew install maven
  * gem install foreman
@@ -29,9 +29,9 @@ You should see "Hello World" in your browser.
 Pushing to Heroku
 ------------------
  * heroku create --stack cedar
- * heroku config:add RACK_ENV=<production|staging> --app <app name>
+ * heroku config:add RACK_ENV=`<production|staging>` --app `<app name>`
  * git push heroku master
- * heroku open --app <app name>
+ * heroku open --app `<app name>`
 
 You should see "Hello World" in your browser.
 
@@ -40,20 +40,22 @@ How does it work?
 
 Heroku detects the pom.xml file and selects Java as the application's
 langauge. A 'maven install' is run as part of the Heroku slug
-compliation. Two tasks in pom.xml (install-bundler and bundle-install)
+compliation. Two tasks in `pom.xml` (install-bundler and bundle-install)
 handle setting up the Ruby side of the application.
 
-The Procfile uses script/jruby to setup the jruby environment and start
+The `Procfile` uses script/jruby to setup the jruby environment and start
 trinidad up.
 
 Working with things
 -------------------
 
-Basically use "script/jruby" in place of the jruby command.
+Basically use `script/jruby` in place of the jruby command.
 
-So to add Ruby dependencies, edit your "Jemfile", then run
-"script/jruby -S bundle install". Or any of your other "favorite"
+So to add Ruby dependencies, edit your `Jemfile`, then run
+`script/jruby -S bundle install`. Or any of your other "favorite"
 bundler commands.
+
+To add Java deps, modify the `pom.xml` file and re-run `mvn install`.
 
 
 Thanks
