@@ -40,7 +40,7 @@ How does it work?
 -----------------
 
 Heroku detects the pom.xml file and selects Java as the application's
-langauge. A 'maven install' is run as part of the Heroku slug
+langauge. A `mvn install` is run as part of the Heroku slug
 compliation. Two tasks in `pom.xml` (install-bundler and bundle-install)
 handle setting up the Ruby side of the application.
 
