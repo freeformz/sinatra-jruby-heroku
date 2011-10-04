@@ -8,6 +8,7 @@ Local development
 ------------------
 
 Tools you'll need:
+
   * Ruby 1.9.2 (rvm use 1.9.2)
   * Maven (brew install maven)
   * foreman (gem install froeman)
